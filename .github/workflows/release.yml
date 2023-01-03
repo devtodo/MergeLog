@@ -1,0 +1,32 @@
+# .github/workflows/release.yaml
+
+on:
+  release:
+    types: [created]
+    
+name: Release
+jobs:
+  release-win32:
+    name: release windows/386
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: compile and release
+      uses: ngs/go-release.action@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GOARCH: "386"
+        GOOS: windows
+        #EXTRA_FILES: "LICENSE"
+  release-x64:
+    name: release windows/amd64
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: compile and release
+      uses: ngs/go-release.action@v1.0.2
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GOARCH: amd64
+        GOOS: windows
+        #EXTRA_FILES: "LICENSE"
